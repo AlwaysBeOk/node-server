@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>node.js 服务搭建</title>
+  <style>
+    .box{
+      font-size: 30px;
+      color: deeppink;
+    }
+    .inputs{
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    node server start!
+  </div>
+  <h4>新增学生</h4>
+  <div>
+    <div class="inputs">
+      <label for="student_name">姓名</label>
+      <input id="student_name" type="text">
+    </div>
+    <div class="inputs">
+      <label for="student_sex">性别</label>
+      <select id="student_sex">
+        <option value="1">男</option>
+        <option value="2">女</option>
+      </select>
+    </div>
+    <div class="inputs">
+      <label for="student_age">年龄</label>
+      <input id="student_age" type="number">
+    </div>
+    <div>
+      <button class="submit">点击增加</button>
+    </div>
+  </div>
+  
+  <h4>学生列表</h4>
+  <ul class="list">
+  
+  </ul>
+  <button class="get_list">重新获取学生列表</button>
+
+  <script>
+    document.querySelector('.submit').addEventListener('click', () => {
+      let name = document.querySelector('#student_name').value;
+      let sex = document.querySelector('#student_sex').value;
+      let age = document.querySelector('#student_age').value;
+      console.log('submit!');
+      fetch('http://localhost:3001/student/add', {
+        method:'post',
+        headers: {
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({name: name, sex: sex, age: age})
+      }).then((res)=> {
+        if(res.status === 200){
+          alert('添加成功')
+        }else {
+          alert('添加失败')
+        }
+      })
+    })
+
+    document.querySelector('.get_list').addEventListener('click', () => {
+      fetch('http://localhost:3001/student/list', {
+        method:'get',
+        headers: {
+          'Content-Type':'application/json'
+        },
+      }).then((res)=> {
+        return res.json();
+      }).then((data) => {
+        document.querySelector('.list').innerHTML = data.map((item) => '<li> 姓名' + item.name +
+          '性别：' + item.sex + '年龄' + item.age + '</li>').join('')
+      })
+    })
+    
+  </script>
+</body>
+</html>
