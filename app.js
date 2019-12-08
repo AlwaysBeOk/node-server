@@ -35,7 +35,7 @@ global.connectionQuery = new wrapQuery().query;
 connection.connect((err) => {
   if(err) throw err;
   console.log('连接成功');
-})
+});
 
 // 注册路由
 routes(app);

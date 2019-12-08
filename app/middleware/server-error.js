@@ -1,9 +1,7 @@
 'use strict';
 // 500错误处理中间件
+const Result = require('../utils/package-result');
 
-module.exports = (req, res, next) => {
-  app.use(function (err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke!')
-  })
+module.exports = (err, req, res, next) => {
+  res.status(500).send(new Result(err, '失败！', false));
 };

@@ -78,7 +78,7 @@
       }).then((res)=> {
         return res.json();
       }).then((data) => {
-        document.querySelector('.list').innerHTML = data.map((item) => '<li> 姓名' + item.name +
+        document.querySelector('.list').innerHTML = data.data.map((item) => '<li> 姓名' + item.name +
           '性别：' + item.sex + '年龄' + item.age + '</li>').join('')
       })
     })
