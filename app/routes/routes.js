@@ -4,12 +4,15 @@ const middleware = require('../middleware');
 const students = require('./student.route');
 
 module.exports = function (app) {
-  app.get('/', (res) => {
+  app.use(function (req,res, next) {
     res.setHeader('Last-Modified',(new Date()).toUTCString());
+    next();
+  })
+
+  app.get('/', () => {
     return require('../view');
   })
   // app.get('/users', Controllers.users.create);
-
 
   // 学生路由总入口
   app.use('/student', students)

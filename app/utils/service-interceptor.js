@@ -7,13 +7,11 @@ class wrap {
     return new Promise(( resolve, reject ) => {
       connection.query(sql, ( err, rows) => {
         if ( err ) {
-          reject( err )
-          throw err;
+          // express 就能捕获 ERROR和reject抛出的错误
+          reject( err );
+          // throw new Error('query error!');
         }
         resolve( rows )
-        // 结束会话
-        // connection.end();
-
       })
     })
   }

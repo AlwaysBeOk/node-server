@@ -8,10 +8,14 @@ class UsersController {
     res.json(result)
   }
 
-  async getList (req, res) {
+  async getList (req, res, next) {
     const paramas = req.body;
-    const result = await Services.students.getStudent(paramas);
-    res.json(result)
+    try{
+      const result = await Services.students.getStudent(paramas);
+      res.json(result)
+    }catch (e){
+      next(e);
+    }
   }
 }
 

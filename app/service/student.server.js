@@ -7,9 +7,9 @@ class StudentService {
     let result =  await connectionQuery(SQL);
     return result;
   }
-  async getStudent () {
+  async getStudent (paramas, next) {
     const SQL = 'select * from student;';
-    let result =  await connectionQuery(SQL);
+    let result =  await connectionQuery(SQL,next);
     return result;
   }
 }
